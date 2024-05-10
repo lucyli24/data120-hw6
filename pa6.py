@@ -76,8 +76,18 @@ class DTree:
         else:
             raise ValueError
 
-    def
+    def tuple_atleast(self):
+        num = set()
+        def determine_ind(node):
+            if node.variable is not None:
+                num.add(node.variable)
+            if node.lessequal is not None:
+                collect_indices(node.lessequal)
+            if node.greater is not None:
+                collect_indices(node.greater)
 
+        collect_indices(self)
+        return max(indices) + 1 if indices else 1
 
 
     def find_outcome(self, tup):
@@ -87,3 +97,19 @@ class DTree:
             return self.lessequal.find_outcome(tup)
         else:
             return self.greater.find_outcome(tup)
+
+    def no_repeats(self):
+        def helper(node, seen):
+            if node.variable is None:  # This is a leaf node with an outcome
+                return True
+            if node.variable in seen:
+                return False
+            # Add current variable to the set and recurse
+            seen.add(node.variable)
+            # Check both branches, if they exist
+            lessequal_result = helper(node.lessequal, seen.copy()) if node.lessequal else True
+            greater_result = helper(node.greater, seen.copy()) if node.greater else True
+            return lessequal_result and greater_result
+        
+        # Start recursive check with an empty set
+        return helper(self, set())
