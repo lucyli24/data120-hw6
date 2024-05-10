@@ -53,7 +53,7 @@ def treemap(func, node):
 class DTree:
     def __init__(self, variable, threshold, lessequal, greater, outcome):
         if (variable is None and threshold is None and lessequal is None and greater is None and outcome is not None) or \
-           (variable is not None and threshold is not None lessequal is not None and greater is not None and outcome is None):
+           (variable is not None and threshold is not None and lessequal is not None and greater is not None and outcome is None):
             self.variable = variable
             self.threshold = threshold
             self.lessequal = lessequal
@@ -96,6 +96,5 @@ class DTree:
             lessequal_result = helper(node.lessequal, seen.copy()) if node.lessequal else True
             greater_result = helper(node.greater, seen.copy()) if node.greater else True
             return lessequal_result and greater_result
-        
 
         return helper(self, set())
