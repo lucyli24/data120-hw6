@@ -19,7 +19,7 @@ def make_change(total):
     return all_combinations
         
 
-def dic_filter(check_function, dict):
+def dict_filter(check_function, dict):
     rv_dict = {}
     for key, value in dict.items():
         if check_function(key, value):
@@ -79,7 +79,7 @@ class DTree:
     def find_outcome(self, tup):
         if self.outcome is not None:
             return self.outcome
-        elif tup[self.variable] <= self.threhold:
+        elif tup[self.variable] <= self.threshold:
             return self.lessequal.find_outcome(tup)
         else:
             return self.greater.find_outcome(tup)
@@ -98,3 +98,4 @@ class DTree:
             return lessequal_result and greater_result
 
         return helper(self, set())
+    
